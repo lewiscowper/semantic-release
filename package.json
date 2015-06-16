@@ -1,46 +1,30 @@
 {
-  "name": "semantic-release",
+  "name": "@semantic-release/cli",
   "description": "automated semver compliant package publishing",
-  "version": "0.0.0-semantically-released",
   "author": "Stephan Bönnemann <stephan@boennemann.me>",
-  "bin": "./bin/semantic-release.js",
-  "bugs": {
-    "url": "https://github.com/boennemann/semantic-release/issues"
+  "bin": {
+    "semantic-release": "./bin/semantic-release.js"
   },
-  "config": {
-    "nyc": {
-      "exclude": [
-        ".tests",
-        "node_modules"
-      ]
-    }
+  "bugs": {
+    "url": "https://github.com/semantic-release/cli/issues"
   },
   "dependencies": {
-    "abbrev": "^1.0.5",
-    "async": "^1.0.0",
-    "conventional-changelog": "0.0.17",
-    "error-first-handler": "^1.0.1",
-    "git-head": "^1.2.1",
-    "github": "0.2.4",
+    "async": "^1.2.1",
+    "base32": "0.0.6",
     "github-url-from-git": "^1.4.0",
-    "ini": "^1.3.2",
-    "minimist": "^1.1.0",
+    "ini": "^1.3.4",
+    "inquirer": "^0.8.5",
+    "lodash": "^3.9.3",
+    "nopt": "^3.0.2",
+    "npm-registry-client": "^6.4.0",
     "npmconf": "^2.1.2",
+    "npmlog": "^1.2.1",
     "parse-github-repo-url": "^1.0.0",
-    "request": "^2.53.0",
-    "semver": "^4.3.3"
+    "request": "^2.58.0",
+    "validator": "^3.40.1"
   },
   "devDependencies": {
-    "coveralls": "^2.11.2",
-    "cracks": "^2.0.1",
-    "github-release-fake-server": "^1.3.0",
-    "lodash.defaults": "^3.0.0",
-    "nano-uid": "^0.2.0",
-    "nixt": "^0.4.1",
-    "nock": "^2.2.0",
-    "nyc": "^2.3.0",
-    "sinopia": "^1.0.0",
-    "standard": "^4.0.1",
+    "standard": "^4.2.1",
     "tap": "^1.2.0"
   },
   "engines": {
@@ -48,7 +32,7 @@
     "node": "^0.10",
     "npm": "^2"
   },
-  "homepage": "https://github.com/boennemann/semantic-release",
+  "homepage": "https://github.com/semantic-release/cli",
   "keywords": [
     "author",
     "automation",
@@ -63,10 +47,7 @@
   "license": "MIT",
   "main": "dist/main.js",
   "optionalDependencies": {
-    "babel": "^5.5.6"
-  },
-  "release": {
-    "verification": "cracks"
+    "babel": "^5.5.8"
   },
   "repository": {
     "type": "git",
@@ -79,9 +60,14 @@
     "coveralls": "npm run coverage -- --reporter=lcovonly && cat coverage/lcov.info | coveralls",
     "postpublish": "./bin/semantic-release.js post",
     "prepublish": "npm run build && ./bin/semantic-release.js pre",
-    "pretest:integration": "npm run build && npm run build:tests",
-    "test": "./bin/test",
-    "test:integration": "nyc tap --no-cov .tests/{scenarios,tap}/*.js",
-    "test:style": "standard"
+    "pretest": "npm run build && npm run build:tests",
+    "test": "standard && tap .tests"
+  },
+  "standard": {
+    "ignore": [
+      "bin",
+      ".tests",
+      "dist"
+    ]
   }
 }
